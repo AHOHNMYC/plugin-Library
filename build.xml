@@ -133,7 +133,7 @@
 
 	<!-- ================================================== -->
 	<target name="unit-build" depends="compile" if="junit.present" unless="skip_tests">
-		<javac srcdir="test/" destdir="${build-test}" debug="on" optimize="on" source="${source-version}">
+		<javac srcdir="test/" destdir="${build-test}" debug="on" optimize="on" source="${source-version}" includeantruntime="false">
 			<classpath>
 				<path refid="lib.path"/>
 				<pathelement path="${build}"/>

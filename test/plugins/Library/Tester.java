@@ -211,7 +211,7 @@ public class Tester {
 		// Split it up.
 		int length = push_index_words.size();
 		final int divideInto = 5;
-		final TreeSet<String>[] phaseWords = new TreeSet[5];
+		final TreeSet<String>[] phaseWords = new TreeSet<Strnig>[5];
 		for(int i=0;i<phaseWords.length;i++)
 			phaseWords[i] = new TreeSet<String>();
 		int x = 0;
