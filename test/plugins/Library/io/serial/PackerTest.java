@@ -26,25 +26,25 @@ public class PackerTest extends TestCase {
 
 	final static public int NODE_MAX = 64;
 
-	final public static Packer<String, HashSet> srl = new Packer<String, HashSet>(
+	final public static Packer<String, HashSet<Integer>> srl = new Packer<String, HashSet<Integer>>(
 		new IterableSerialiser<Map<String, HashSet>>() {
 
-			public void pull(Iterable<PullTask<Map<String, HashSet>>> t) {}
-			public void push(Iterable<PushTask<Map<String, HashSet>>> t) {
-				for (PushTask<Map<String, HashSet>> task: t) {
+			public void pull(Iterable<PullTask<Map<String, HashSet<Integer>>>> t) {}
+			public void push(Iterable<PushTask<Map<String, HashSet<Integer>>>> t) {
+				for (PushTask<Map<String, HashSet<Integer>>> task: t) {
 					System.out.print("[");
-					for (Map.Entry<String, HashSet> en: task.data.entrySet()) {
+					for (Map.Entry<String, HashSet<Integer>> en: task.data.entrySet()) {
 						System.out.print(en.getKey() + ": " + en.getValue().size() + ", ");
 					}
 					System.out.println("]");
 				}
 			}
 
-			public void pull(PullTask<Map<String, HashSet>> t) {}
-			public void push(PushTask<Map<String, HashSet>> t) {}
+			public void pull(PullTask<Map<String, HashSet<Integer>>> t) {}
+			public void push(PushTask<Map<String, HashSet<Integer>>> t) {}
 
 		},
-		new Packer.Scale<HashSet>() {
+		new Packer.Scale<HashSet<Integer>>() {
 			@Override public int weigh(HashSet elem) {
 				return elem.size();
 			}
@@ -52,15 +52,15 @@ public class PackerTest extends TestCase {
 		NODE_MAX
 	);
 
-	protected Map<String, PushTask<HashSet>> generateTasks(int[] sizes) {
+	protected Map<String, PushTask<HashSet<Integer>>> generateTasks(int[] sizes) {
 		String meta = "dummy metadata";
-		Map<String, PushTask<HashSet>> tasks = new HashMap<String, PushTask<HashSet>>();
+		Map<String, PushTask<HashSet<Integer>>> tasks = new HashMap<String, PushTask<HashSet<Integer>>>();
 		for (int size: sizes) {
 			HashSet<Integer> hs = new HashSet<Integer>(size>>1);
 			for (int i=0; i<size; ++i) {
 				hs.add(new Integer(i));
 			}
-			tasks.put(Generators.rndKey(), new PushTask<HashSet>(hs, meta));
+			tasks.put(Generators.rndKey(), new PushTask<HashSet<Integer>>(hs, meta));
 		}
 		return tasks;
 	}
