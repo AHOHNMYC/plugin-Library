@@ -19,7 +19,7 @@ jobs:
       run: |
         sudo sh -c "echo 'force-unsafe-io' > /etc/dpkg/dpkg.cfg.d/force-unsafe-io"
         sudo apt-get -qq install junit > /dev/null
-    - name: Download freenet.jar
+    - name: Download dependencies
       run: |
         mkdir -p ../fred/build/libs/
         wget https://github.com/hyphanet/fred/releases/download/build01497/freenet.jar -qO ../fred/build/libs/freenet.jar
