@@ -1,0 +1,31 @@
+name: Ant build CI
+on:
+  push:
+  pull_request:
+#trash
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 8
+      uses: actions/setup-java@v4
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+    - name: Set up junit
+      run: |
+        sudo sh -c "echo 'force-unsafe-io' > /etc/dpkg/dpkg.cfg.d/force-unsafe-io"
+        sudo apt-get -qq install junit > /dev/null
+    - name: Download freenet.jar
+      run: |
+        mkdir -p ../fred/build/libs/
+        wget https://github.com/hyphanet/fred/releases/download/build01497/freenet.jar -qO ../fred/build/libs/freenet.jar
+        wget https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.5/snakeyaml-1.5.jar -qO lib/snakeyaml-1.5.jar
+    - name: Build with Ant
+      run: ant -noinput -buildfile build.xml
+    - name: Upload Library
+      uses: actions/upload-artifact@v4
+      with:
+        name: plugin-Library
+        path: dist/*
