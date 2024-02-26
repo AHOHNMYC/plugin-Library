@@ -19,7 +19,8 @@ jobs:
         sudo apt-get -qq install junit > /dev/null
     - name: Download freenet.jar
       run: |
-        wget https://github.com/hyphanet/fred/releases/download/build01497/freenet.jar -qO ../freenet.jar
+        mkdir -p ../fred/build/libs/
+        wget https://github.com/hyphanet/fred/releases/download/build01497/freenet.jar -qO ../fred/build/libs/freenet.jar
         wget https://repo1.maven.org/maven2/org/yaml/snakeyaml/1.5/snakeyaml-1.5.jar -qO lib/snakeyaml-1.5.jar
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml
