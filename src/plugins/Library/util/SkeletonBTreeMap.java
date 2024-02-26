@@ -569,7 +569,7 @@ public class SkeletonBTreeMap<K, V> extends BTreeMap<K, V> implements SkeletonMa
 			ids = new LinkedHashMap<PullTask<SkeletonNode>, ProgressTracker<SkeletonNode, ?>>();
 			ntracker = ((Serialiser.Trackable<SkeletonNode>)nsrl).getTracker();
 			// PROGRESS make a ProgressTracker track this instead of "pr_inf".
-			pr_inf.setSubProgress(ProgressTracker.makePullProgressIterable(ids, ntracker));
+			pr_inf.setSubProgress(ProgressTracker.makePullProgressIterable(ntracker, ids));
 			pr_inf.setSubject("Pulling all entries in B-tree");
 		}
 
