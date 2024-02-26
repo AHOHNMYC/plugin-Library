@@ -2,7 +2,9 @@ name: Ant build CI
 on:
   push:
   pull_request:
-#trash
+  workflow_dispatch:
+  
+
 jobs:
   build:
     runs-on: ubuntu-latest
