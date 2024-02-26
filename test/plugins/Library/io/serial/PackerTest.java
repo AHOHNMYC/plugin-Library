@@ -27,10 +27,10 @@ public class PackerTest extends TestCase {
 	final static public int NODE_MAX = 64;
 
 	final public static Packer<String, HashSet<Integer>> srl = new Packer<String, HashSet<Integer>>(
-		new IterableSerialiser<Map<String, HashSet>>() {
+		new IterableSerialiser<Map<String, HashSet<Integer>>>() {
 
-			public void pull(Iterable<PullTask<Map<String, HashSet<Integer>>>> t) {}
-			public void push(Iterable<PushTask<Map<String, HashSet<Integer>>>> t) {
+			@Override public void pull(Iterable<PullTask<Map<String, HashSet<Integer>>>> t) {}
+			@Override public void push(Iterable<PushTask<Map<String, HashSet<Integer>>>> t) {
 				for (PushTask<Map<String, HashSet<Integer>>> task: t) {
 					System.out.print("[");
 					for (Map.Entry<String, HashSet<Integer>> en: task.data.entrySet()) {
@@ -40,8 +40,8 @@ public class PackerTest extends TestCase {
 				}
 			}
 
-			public void pull(PullTask<Map<String, HashSet<Integer>>> t) {}
-			public void push(PushTask<Map<String, HashSet<Integer>>> t) {}
+			@Override public void pull(PullTask<Map<String, HashSet<Integer>>> t) {}
+			@Override public void push(PushTask<Map<String, HashSet<Integer>>> t) {}
 
 		},
 		new Packer.Scale<HashSet<Integer>>() {
